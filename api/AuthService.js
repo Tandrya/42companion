@@ -5,7 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { APP_ENV_UID, APP_ENV_SECRET, API_GET_TOKEN } from "@env";
 
 export const getAccessToken = async () => {
+
     try {
+        await AsyncStorage.removeItem('tokenData');
+
         const response = await fetch(API_GET_TOKEN, {
             method: 'POST',
             headers: {
@@ -19,6 +22,7 @@ export const getAccessToken = async () => {
         });
 
         const data = await response.json();
+        console.log('New Token Data:', data);
 
         if (data.access_token) {
             await AsyncStorage.setItem('tokenData', JSON.stringify(data));
@@ -34,18 +38,22 @@ export const getAccessToken = async () => {
 };
 
 export const retrieveAccessToken = async () => {
+
     const storedDataString = await AsyncStorage.getItem('tokenData');
+
     if (!storedDataString) {
+        console.log('No token data found, fetching new token');
         return await getAccessToken();
     }
 
     const tokenData = JSON.parse(storedDataString);
     const { access_token, created_at, expires_in } = tokenData;
-
-    const currentTime = Date.now();
-    const expirationTime = (created_at + expires_in) * 1000;
+    
+    const currentTime = Date.now() / 1000;
+    const expirationTime = (created_at + expires_in);
 
     if (currentTime > expirationTime) {
+        console.log('Token expired, fetching new token');
         return await getAccessToken();
     } else {
         return access_token;

@@ -1,21 +1,34 @@
 // React Elements
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Button, Image, TextInput } from 'react-native';
 
 // Components
-import BackgroundComponent from '../components/shared/BackgroundComponent.js';
-import WrapperComponent from '../components/shared/WrapperComponent.js';
-import TitleComponent from '../components/shared/TitleComponent.js';
-import RalewayText from '../components/text/RalewayText.js';
+import BackgroundComponent from '../components/atoms/BackgroundComponent.js';
+import WrapperComponent from '../components/atoms/WrapperComponent.js';
+import TitleComponent from '../components/atoms/TitleComponent.js';
+import TextComponent from '../components/atoms/TextComponent.js';
+
+// API Services
+import { getUserInfos } from '../api/ApiService.js';
+import { retrieveAccessToken } from '../api/AuthService.js';
 
 // Styles
 import { layoutStyles } from '../styles/layoutStyles.js';
+import { textStyles } from '../styles/textStyles.js';
 
 const HomeScreen = ({ navigation }) => {
 
-  const handleProfile = () => {
-    /* Tests */
-    navigation.navigate('Profile');
+  const [searchInput, setSearchInput] = useState('');
+
+  const handleProfileSearch = async () => {
+    const accessToken = await retrieveAccessToken();
+    const userInfos = await getUserInfos(accessToken, searchInput.toLocaleLowerCase());
+    
+    if (userInfos) {
+      navigation.navigate('Profile', { userInfos });
+    } else {
+      console.error('User not found.');
+    }
   };
 
   return (
@@ -25,37 +38,26 @@ const HomeScreen = ({ navigation }) => {
           source={require('../assets/images/heroGraphImage.png')}
           style={layoutStyles.heroGraphImage}
         />
-        <View style={{ flex: 1, alignContent: 'center', justifyContent: 'center' }}>
+        <View style={{ alignContent: 'center', justifyContent: 'center' }}>
           <TitleComponent />
           <Image
             source={require('../assets/images/heroImage.png')}
             style={layoutStyles.heroImage}
           />
           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <RalewayText>
-              <Text style={{ fontSize: 16, color: 'white' }}>Search for a 42 login.</Text>
-            </RalewayText>
+            <TextComponent>
+              <Text style={textStyles.body}>Search for a 42 login.</Text>
+            </TextComponent>
             <TextInput
               cursorColor={'white'}
               maxLength={12}
-              style={{
-                paddingBottom: 10,
-                width: 300,
-                marginBottom: 60,
-                marginTop: 30,
-                height: 40,
-                color: 'white',
-                fontFamily: 'Raleway_500Medium',
-                borderTopColor: 'transparent',
-                borderLeftColor: 'transparent',
-                borderRightColor: 'transparent',
-                borderBottomColor: 'white',
-                borderWidth: 1,
-              }}
+              style={textStyles.input}
+              onChangeText={setSearchInput}
+              value={searchInput}
             />
             <Button
               title="Search"
-              onPress={handleProfile}
+              onPress={handleProfileSearch}
             />
           </View>
         </View>

@@ -1,20 +1,24 @@
+// React Elements
 import React from 'react';
-import { Text, Button } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 // Components
-import BackgroundComponent from '../components/shared/BackgroundComponent.js';
-import WrapperComponent from '../components/shared/WrapperComponent.js';
+import BackgroundComponent from '../components/atoms/BackgroundComponent.js';
+import AvatarComponent from '../components/atoms/AvatarComponent.js';
 
-const ProfileScreen = ({ navigation }) => {
+
+const ProfileScreen = ({ route, navigation }) => {
+  const { userInfos } = route.params;
+
+  console.log(userInfos)
   return (
     <BackgroundComponent>
-      <WrapperComponent>
-          <Text>User Profile</Text>
-          <Button
-            title="Back"
-            onPress={() => navigation.navigate('Index')}
-          />
-      </WrapperComponent>
+      {/* <WrapperComponent> */}
+      <SafeAreaView>
+        <AvatarComponent source={{ uri: userInfos.image.versions.large }} login={userInfos.login} />
+
+      </SafeAreaView>
+      {/* </WrapperComponent> */}
     </BackgroundComponent>
   );
 }

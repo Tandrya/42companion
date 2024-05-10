@@ -5,7 +5,7 @@ import { StyleSheet, Text } from "react-native";
 // Fonts
 import { Raleway_500Medium } from "@expo-google-fonts/raleway";
 
-const RalewayText = ({ children }) => {
+const TextComponent = ({ children }) => {
     const [fontsLoaded] = useFonts({
         Raleway_500Medium,
     });
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default RalewayText;
+export default TextComponent;

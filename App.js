@@ -7,9 +7,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './screens/homeScreen.js';
 import ProfileScreen from './screens/profileScreen.js';
 
+// Components
+import BackgroundComponent from './components/atoms/BackgroundComponent.js';
+
 // Styles
 import { lightColor, primaryColor, anthraciteColor } from './styles/layoutStyles.js';
-import BackgroundComponent from './components/shared/BackgroundComponent.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,7 +41,7 @@ export default function App() {
           }}
         >
           <Stack.Screen
-            name="Index"
+            name="Home"
             component={HomeScreen}
             options={{
               cardStyle: { backgroundColor: 'transparent' },
@@ -54,7 +56,7 @@ export default function App() {
               headerTitleAlign: 'center',
               headerTitle: () => (
                 <Image
-                  style={{ width: 45, height: 30, resizeMode: 'contain' }}
+                  style={{ width: 45, height: 30, resizeMode: 'contain', marginTop: 10}}
                   source={require('./assets/images/42companionLogo.png')}
                 />
               ),
