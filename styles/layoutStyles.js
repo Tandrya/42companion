@@ -6,12 +6,12 @@ export const screenHeight = Dimensions.get('window').height;
 export const screenWidth = Dimensions.get('window').width > 500 ? 500 : Dimensions.get('window').width;
 
 // Colors
-export const primaryColor = '#D2FF1F';
-export const secondaryColor = '#FF825C';
-export const anthraciteColor = '#1A1A1A';
-export const lightColor = '#FFFFFF';
-export const greyColor = '#272727';
-export const lightGreyColor = '#A8A8A8';
+export const PRIMARY_COLOR = '#D2FF1F';
+export const SECONDARY_COLOR = '#FF825C';
+export const ANTHRACITE_COLOR = '#1A1A1A';
+export const LIGHT_COLOR = '#FFFFFF';
+export const GREY_COLOR = '#272727';
+export const LIGHTGREY_COLOR = '#A8A8A8';
 
 // Layout Styles
 export const layoutStyles = StyleSheet.create({

@@ -2,12 +2,12 @@
 import { StyleSheet } from 'react-native';
 
 // Color Styles
-import { lightColor } from './layoutStyles.js';
+import { LIGHT_COLOR } from './layoutStyles.js';
 
 // Text Styles
 export const textStyles = StyleSheet.create({
   body: {
-    color: lightColor,
+    color: LIGHT_COLOR,
     fontSize: 16,
   },
   input: {

@@ -2,6 +2,9 @@
 import React from 'react';
 import { Text, Image, View, StyleSheet } from 'react-native';
 
+// Atoms
+import TextComponent from '../atoms/TextComponent.js';
+
 // Styles
 import { textStyles } from '../../styles/textStyles.js';
 
@@ -16,15 +19,15 @@ const AvatarComponent = ({ source, login }) => {
                     style={styles.image}
                 />
             </View>
-            <Text style={textStyles.body}>{login}</Text>
+            <TextComponent string={login} style={{ fontSize: 16 }} />
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        width: 140,
-        height: 140,
+        width: 125,
+        height: 125,
         overflow: 'hidden',
         borderRadius: 70,
         borderColor: '#D2FF1F',

@@ -3,18 +3,18 @@ import React, { useState } from 'react';
 import { View, Text, Button, Image, TextInput } from 'react-native';
 
 // Components
-import BackgroundComponent from '../components/atoms/BackgroundComponent.js';
-import WrapperComponent from '../components/atoms/WrapperComponent.js';
-import TitleComponent from '../components/atoms/TitleComponent.js';
-import TextComponent from '../components/atoms/TextComponent.js';
+import BackgroundComponent from '../../components/atoms/BackgroundComponent.js';
+import WrapperComponent from '../../components/atoms/WrapperComponent.js';
+import HeroComponent from '../../components/atoms/HeroComponent.js';
+import TextComponent from '../../components/atoms/TextComponent.js';
 
 // API Services
-import { getUserInfos } from '../api/ApiService.js';
-import { retrieveAccessToken } from '../api/AuthService.js';
+import { getUserInfos } from '../../api/ApiService.js';
+import { retrieveAccessToken } from '../../api/AuthService.js';
 
 // Styles
-import { layoutStyles } from '../styles/layoutStyles.js';
-import { textStyles } from '../styles/textStyles.js';
+import { layoutStyles } from '../../styles/layoutStyles.js';
+import { textStyles } from '../../styles/textStyles.js';
 
 const HomeScreen = ({ navigation }) => {
 
@@ -35,19 +35,13 @@ const HomeScreen = ({ navigation }) => {
     <BackgroundComponent>
       <WrapperComponent>
         <Image
-          source={require('../assets/images/heroGraphImage.png')}
+          source={require('../../assets/images/heroGraphImage.png')}
           style={layoutStyles.heroGraphImage}
         />
         <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-          <TitleComponent />
-          <Image
-            source={require('../assets/images/heroImage.png')}
-            style={layoutStyles.heroImage}
-          />
+          <HeroComponent />
           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <TextComponent>
-              <Text style={textStyles.body}>Search for a 42 login.</Text>
-            </TextComponent>
+            <TextComponent string={'Search for a 42 login'} style={textStyles.body} />
             <TextInput
               cursorColor={'white'}
               maxLength={12}

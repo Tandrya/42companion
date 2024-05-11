@@ -4,14 +4,14 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 // Screens
-import HomeScreen from './screens/homeScreen.js';
-import ProfileScreen from './screens/profileScreen.js';
+import HomeScreen from './screens/home/HomeScreen.js';
+import ProfileScreen from './screens/profile/ProfileScreen.js';
 
 // Components
 import BackgroundComponent from './components/atoms/BackgroundComponent.js';
 
 // Styles
-import { lightColor, primaryColor, anthraciteColor } from './styles/layoutStyles.js';
+import { LIGHT_COLOR, PRIMARY_COLOR, ANTHRACITE_COLOR } from './styles/layoutStyles.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,8 +19,8 @@ const customTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    backgroundColor: anthraciteColor,
-    primaryColor: primaryColor,
+    backgroundColor: ANTHRACITE_COLOR,
+    PRIMARY_COLOR: PRIMARY_COLOR,
   },
 };
 
@@ -33,11 +33,17 @@ export default function App() {
             headerStyle: {
               backgroundColor: 'transparent',
             },
-            headerTintColor: lightColor,
+            headerTintColor: LIGHT_COLOR,
             headerTitleStyle: {
               alignSelf: 'center',
             },
             headerTransparent: true,
+            headerTitle: () => (
+              <Image
+                style={{ width: 45, height: 30, resizeMode: 'contain', marginTop: 10}}
+                source={require('./assets/images/42companionLogo.png')}
+              />
+            ),
           }}
         >
           <Stack.Screen
@@ -46,7 +52,7 @@ export default function App() {
             options={{
               cardStyle: { backgroundColor: 'transparent' },
               presentation: 'transparentModal',
-              headerShown: false,
+              // headerShown: false,
             }}
           />
           <Stack.Screen
@@ -54,12 +60,12 @@ export default function App() {
             component={ProfileScreen}
             options={{
               headerTitleAlign: 'center',
-              headerTitle: () => (
-                <Image
-                  style={{ width: 45, height: 30, resizeMode: 'contain', marginTop: 10}}
-                  source={require('./assets/images/42companionLogo.png')}
-                />
-              ),
+              // headerTitle: () => (
+              //   <Image
+              //     style={{ width: 45, height: 30, resizeMode: 'contain', marginTop: 10}}
+              //     source={require('./assets/images/42companionLogo.png')}
+              //   />
+              // ),
             }}
           />
         </Stack.Navigator>

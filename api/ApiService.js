@@ -8,12 +8,13 @@ import { API_GET_USER } from "@env";
 
 export const getUserInfos = async (accessToken, login) => {
   try {
+    console.log(login)
     const response = await fetch(`${API_GET_USER}${login}`, {
       headers: { 'Authorization': `Bearer ${accessToken}` }
     });
     const data = await response.json();
     const user = data[0];
-
+    console.log(data)
     if (user && user.login) {
       return user;
     }

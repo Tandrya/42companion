@@ -7,7 +7,7 @@ import { APP_ENV_UID, APP_ENV_SECRET, API_GET_TOKEN } from "@env";
 export const getAccessToken = async () => {
 
     try {
-        await AsyncStorage.removeItem('tokenData');
+        await AsyncStorage.clear();
 
         const response = await fetch(API_GET_TOKEN, {
             method: 'POST',
@@ -48,14 +48,20 @@ export const retrieveAccessToken = async () => {
 
     const tokenData = JSON.parse(storedDataString);
     const { access_token, created_at, expires_in } = tokenData;
+
+    console.log('Actual Token Data:', tokenData)
     
     const currentTime = Date.now() / 1000;
     const expirationTime = (created_at + expires_in);
+
+    console.log('Current Time:', currentTime);
+    console.log('Expiration Time:', expirationTime);
 
     if (currentTime > expirationTime) {
         console.log('Token expired, fetching new token');
         return await getAccessToken();
     } else {
+        console.log('Stored Token valid, returning it');
         return access_token;
     }
 };
