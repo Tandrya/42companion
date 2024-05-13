@@ -1,17 +1,29 @@
 // React Elements
-import { ScrollView, View } from 'react-native';
+import { ScrollView, View, StyleSheet } from 'react-native';
 
 // Styles
-import { layoutStyles } from '../../styles/layoutStyles.js'
+import * as Spacing from '../../styles/spacing.js';
 
 const WrapperComponent = ({ children }) => {
     return (
         <ScrollView showsVerticalScrollIndicator={false} >
-            <View style={layoutStyles.wrapper}>
+            <View style={styles.wrapper}>
                 {children}
             </View>
         </ScrollView>
     );
 }
+
+const styles = StyleSheet.create({
+    wrapper: {
+        minHeight: Spacing.SCREEN_HEIGHT,
+        width: Spacing.SCREEN_WIDTH,
+        alignSelf: 'center',
+        alignContent: 'center',
+        justifyContent: 'center',
+        paddingLeft: 20,
+        paddingRight: 20,
+    }
+});
 
 export default WrapperComponent;

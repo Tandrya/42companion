@@ -1,7 +1,8 @@
 // React Elements
 import React from 'react';
-import { SafeAreaView, Text, View } from 'react-native';
+import { Platform, SafeAreaView, Text, View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useEffect } from 'react';
 
 // Tabs
 import InfosScreen from './tabs/InfosTab.js';
@@ -16,11 +17,15 @@ import AvatarComponent from '../../components/atoms/AvatarComponent.js';
 import * as Colors from '../../styles/colors.js';
 import * as Spacing from '../../styles/spacing.js';
 
+// Contexts
+import { useUser } from '../../contexts/UserContext.js';
+
 const Tab = createMaterialTopTabNavigator();
 const TabNavigatorOptions = {
   tabBarLabelStyle: {
     textTransform: 'none',
-    fontFamily : 'Raleway_500Medium',
+    fontFamily: 'Raleway_500Medium',
+    fontSize: 14,
   },
   tabBarActiveTintColor: 'black',
   tabBarInactiveTintColor: '#F8F8F8',
@@ -73,16 +78,16 @@ function ProfileTabs() {
   );
 }
 
+const ProfileScreen = ({ navigation }) => {
+  const { user, setUser } = useUser();
 
-const ProfileScreen = ({ route, navigation }) => {
-  const { userInfos } = route.params;
+  const safeMargin = Platform.OS === 'ios' ? 100 : 60;
 
-  // console.log(userInfos);
   return (
     <BackgroundComponent>
-      <SafeAreaView>
-        <AvatarComponent source={{ uri: userInfos.image.versions.large }} login={userInfos.login} />
-      </SafeAreaView>
+      <View style={{ marginTop: safeMargin }}>
+        <AvatarComponent source={{ uri: user.image.versions.large }} login={user.login} />
+      </View>
       <ProfileTabs />
     </BackgroundComponent>
   );

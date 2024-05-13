@@ -1,10 +1,15 @@
 // React Elements
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
 // Organisms
 import LargeCardComponent from '../../../components/organisms/LargeCardComponent.js';
 
+// Contexts
+import { useUser } from '../../../contexts/UserContext.js';
+
 const ProjectsScreen = () => {
+    const { user, setUser } = useUser();
+
     return (
         <View style={styles.projectTabWrapper}>
             <ScrollView
@@ -12,11 +17,9 @@ const ProjectsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}
             >
-                {/* For each project */}
-                <LargeCardComponent data={{ name: 'Projects' }} />
-                <LargeCardComponent data={{ name: 'Projects' }} />
-                <LargeCardComponent data={{ name: 'Projects' }} />
-                <LargeCardComponent data={{ name: 'Projects' }} />
+                {user.projects_users.map(project => (
+                    <LargeCardComponent key={project.id} data={{ name: project.project.name, finalmark: project.final_mark, status: project["validated?"] }} />
+                ))}
             </ScrollView>
         </View>
     );

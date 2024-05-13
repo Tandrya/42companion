@@ -1,10 +1,7 @@
-import { View, Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 // Assets
 import TitleSVG from '../../assets/svg/mainTitle.svg';
-
-// Styles
-import { layoutStyles } from '../../styles/layoutStyles.js';
 
 const HeroComponent = () => {
     return (
@@ -14,10 +11,19 @@ const HeroComponent = () => {
             </View>
             <Image
                 source={require('../../assets/images/heroImage.png')}
-                style={layoutStyles.heroImage}
+                style={styles.heroImage}
             />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    heroImage: {
+        width: '85%',
+        alignSelf: 'center',
+        height: 250,
+        resizeMode: 'contain'
+    },
+})
 
 export default HeroComponent;

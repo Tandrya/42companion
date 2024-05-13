@@ -4,12 +4,9 @@ import {View, StyleSheet} from 'react-native';
 // Atoms
 import TextComponent from '../atoms/TextComponent.js';
 
-// Assets
-import CardIcon from '../../assets/svg/cardIcon.svg';
-
 const CardTagComponent = ({color, string}) => {
 
-    const fontColor = color == '#D2FF1F' ? '#000000' : '#FFFFFF';
+    const fontColor = color == '#1C1C1C' ? '#FFFFFF' : '#000000';
 
     return (
         <View style={[styles.cardTagWrapper, {backgroundColor: color}]}>

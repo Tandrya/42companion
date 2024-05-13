@@ -5,8 +5,37 @@ import { View, StyleSheet, ScrollView } from 'react-native';
 import LargeCardComponent from '../../../components/organisms/LargeCardComponent.js';
 import SquareCardComponent from '../../../components/organisms/SquareCardComponent.js';
 
+// Styles
+import * as Colors from '../../../styles/colors.js';
+
+// Contexts
+import { useUser } from '../../../contexts/UserContext.js';
 
 const InfosScreen = () => {
+    const { user, setUser } = useUser();
+    const { cursus, setCursus } = useUser();
+
+    const totalProjects = () => {
+        let count = 0;
+        user.projects_users.forEach(element => {
+            if (element.cursus_ids == cursus.cursus.id) {
+                count++;
+            }
+        });
+        return count;
+    }
+
+    function daysFromNow(dateString) {
+        const targetDate = new Date(dateString);
+        const today = new Date();
+        const difference = targetDate - today;
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        return days;
+    }
+
+    const projectsCount = totalProjects();
+    const blackholeDays = cursus.blackholed_at ? daysFromNow(cursus.blackholed_at) : '∞';
+
     return (
         <View style={style.infoTabWrapper}>
             <ScrollView
@@ -14,18 +43,18 @@ const InfosScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}
             >
-                <LargeCardComponent data={{ name: 'Infos' }} />
+                <LargeCardComponent data={{ name: 'Informations', user, cursus }} />
                 <View style={style.infoTabRow}>
-                    <SquareCardComponent title={'Level'} value={'5.4'} />
-                    <SquareCardComponent title={'Projects'} value={'12'} />
+                    <SquareCardComponent title={'Level'} value={cursus.level} style={{backgroundColor : Colors.PRIMARY_COLOR}} />
+                    <SquareCardComponent title={'Projects'} value={projectsCount} />
                 </View>
                 <View style={style.infoTabRow}>
-                    <SquareCardComponent title={'Pool Date'} value={'2016'} />
-                    <SquareCardComponent title={'Pool Level'} value={'9'} />
+                    <SquareCardComponent title={'Blackhole Days'} value={blackholeDays} />
+                    <SquareCardComponent title={'Pool Year'} value={cursus.user.pool_year} />
                 </View>
                 <View style={style.infoTabRow}>
-                    <SquareCardComponent title={'Success'} value={'4'} />
-                    <SquareCardComponent title={'Fails'} value={'1'} />
+                    <SquareCardComponent title={'Achievements'} value={user.achievements.length} />
+                    <SquareCardComponent title={'Expertises'} value={user.expertises_users.length} />
                 </View>
             </ScrollView>
         </View>

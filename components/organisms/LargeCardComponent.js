@@ -11,59 +11,56 @@ import * as Spacing from '../../styles/spacing.js';
 import * as Colors from '../../styles/colors.js';
 
 const LargeCardComponent = ({ data }) => {
-    if (data.name == 'Infos') {
-        return (
-            <View style={[style.cardWrapper]}>
-                <ImageBackground
-                    source={require('../../assets/images/largeCardBackground.png')}
-                    style={{ width: '100%', height: 190 }}
-                >
-                    <View style={style.cardInner}>
-                        <CardTitleComponent success={true} title={'Informations'} />
+
+    const user = data.user;
+
+    return (
+        <View style={[style.cardWrapper]}>
+            <ImageBackground
+                source={require('../../assets/images/largeCardBackground.png')}
+                style={{ width: '100%', height: 190 }}
+            >
+                <View style={style.cardInner}>
+                    <CardTitleComponent success={true} title={data.name} />
+
+                    {data.name == 'Informations' ? (
                         <View style={style.cardContentRow}>
                             <View style={style.cardContentColumn}>
-                                <CardInfoComponent title={'Campus'} value={'42 Le Havre'} />
-                                <CardInfoComponent title={'Grade'} value={'Learner'} />
+                                <CardInfoComponent title={'Name'} value={user.displayname} />
+                                <CardInfoComponent title={'Wallet'} value={user.wallet + ' ₳'} />
                             </View>
                             <View style={style.cardContentColumn}>
-                                <CardInfoComponent title={'Wallets'} value={'1500'} />
-                                <CardInfoComponent title={'Eval. Points'} value={'4'} />
+                                <CardInfoComponent title={'Campus'} value={user.campus[0].name} />
+                                <CardInfoComponent title={'Eval. Points'} value={user.correction_point} />
                             </View>
                         </View>
-                    </View>
-                </ImageBackground>
-            </View>
-        );
-    } else {
-        return (
-            <View style={[style.cardWrapper, {marginBottom: 20}]}>
-                <ImageBackground
-                    source={require('../../assets/images/largeCardBackground.png')}
-                    style={{ width: '100%', height: 190 }}
-                >
-                    <View style={style.cardInner}>
-                        <CardTitleComponent success={true} title={'libft'} />
+                    ) : (
                         <View style={style.cardContentColumn}>
                             <View style={[style.cardContentRow]}>
                                 <CardInfoComponent title={'Cursus'} value={'Common Core'} />
                                 <CardInfoComponent title={'Date'} value={'2024 - 05'} />
                             </View>
-                            <View style={[style.cardContentRow, {width: '100%'}]}>
-                                <CardTagComponent color={Colors.DARK_COLOR} string={'100/100'} />
-                                <CardTagComponent color={Colors.PRIMARY_COLOR} string={'Success'} />
+                            <View style={[style.cardContentRow, { width: '100%' }]}>
+                                <CardTagComponent color={Colors.DARK_COLOR} string={data.finalmark == null ? 'In Progress' : data.finalmark + ' / 100' } />
+                                {data.finalmark !== null ? (
+                                    <CardTagComponent color={data.status ? Colors.PRIMARY_COLOR : Colors.SECONDARY_COLOR} string={data.status ? 'Success' : 'Failure'} />
+                                ) : (
+                                    null
+                                )}
                             </View>
                         </View>
-                    </View>
-                </ImageBackground>
-            </View>
-        );
-    }
+                    )}
+                </View>
+            </ImageBackground>
+        </View>
+    );
 }
 
 const style = StyleSheet.create({
     cardWrapper: {
         borderRadius: 20,
         overflow: 'hidden',
+        marginBottom: Spacing.LARGE_SPACING,
     },
     cardInner: {
         padding: Spacing.LARGE_SPACING,
@@ -82,7 +79,6 @@ const style = StyleSheet.create({
         },
         shadowOpacity: 0.15,
         shadowRadius: 3.84,
-
         elevation: 3,
     },
 });

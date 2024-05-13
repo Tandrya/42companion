@@ -22,7 +22,6 @@ export const getAccessToken = async () => {
         });
 
         const data = await response.json();
-        console.log('New Token Data:', data);
 
         if (data.access_token) {
             await AsyncStorage.setItem('tokenData', JSON.stringify(data));
@@ -42,26 +41,18 @@ export const retrieveAccessToken = async () => {
     const storedDataString = await AsyncStorage.getItem('tokenData');
 
     if (!storedDataString) {
-        console.log('No token data found, fetching new token');
         return await getAccessToken();
     }
 
     const tokenData = JSON.parse(storedDataString);
     const { access_token, created_at, expires_in } = tokenData;
 
-    console.log('Actual Token Data:', tokenData)
-    
     const currentTime = Date.now() / 1000;
     const expirationTime = (created_at + expires_in);
 
-    console.log('Current Time:', currentTime);
-    console.log('Expiration Time:', expirationTime);
-
     if (currentTime > expirationTime) {
-        console.log('Token expired, fetching new token');
         return await getAccessToken();
     } else {
-        console.log('Stored Token valid, returning it');
         return access_token;
     }
 };

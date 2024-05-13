@@ -1,12 +1,9 @@
 // React Elements
 import React from 'react';
-import { Text, Image, View, StyleSheet } from 'react-native';
+import { Image, View, StyleSheet } from 'react-native';
 
 // Atoms
 import TextComponent from '../atoms/TextComponent.js';
-
-// Styles
-import { textStyles } from '../../styles/textStyles.js';
 
 const AvatarComponent = ({ source, login }) => {
     return (

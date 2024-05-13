@@ -1,5 +1,5 @@
 // React Elements
-import { Image, StatusBar } from 'react-native';
+import { Image, StatusBar, SafeAreaView } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -11,7 +11,10 @@ import ProfileScreen from './screens/profile/ProfileScreen.js';
 import BackgroundComponent from './components/atoms/BackgroundComponent.js';
 
 // Styles
-import { LIGHT_COLOR, PRIMARY_COLOR, ANTHRACITE_COLOR } from './styles/layoutStyles.js';
+import * as Colors from './styles/colors.js';
+
+// Contexts
+import { UserProvider } from './contexts/UserContext.js';
 
 const Stack = createNativeStackNavigator();
 
@@ -19,58 +22,54 @@ const customTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    backgroundColor: ANTHRACITE_COLOR,
-    PRIMARY_COLOR: PRIMARY_COLOR,
+    backgroundColor: Colors.ANTHRACITE_COLOR,
+    PRIMARY_COLOR: Colors.PRIMARY_COLOR,
   },
 };
 
 export default function App() {
   return (
-    <BackgroundComponent>
-      <NavigationContainer theme={customTheme}>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: {
-              backgroundColor: 'transparent',
-            },
-            headerTintColor: LIGHT_COLOR,
-            headerTitleStyle: {
-              alignSelf: 'center',
-            },
-            headerTransparent: true,
-            headerTitle: () => (
-              <Image
-                style={{ width: 45, height: 30, resizeMode: 'contain', marginTop: 10}}
-                source={require('./assets/images/42companionLogo.png')}
-              />
-            ),
-          }}
-        >
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              cardStyle: { backgroundColor: 'transparent' },
-              presentation: 'transparentModal',
-              // headerShown: false,
+    <UserProvider>
+      <BackgroundComponent>
+        <NavigationContainer theme={customTheme}>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: {
+                backgroundColor: 'transparent',
+              },
+              headerTintColor: Colors.LIGHT_COLOR,
+              headerTitleStyle: {
+                alignSelf: 'center',
+              },
+              headerTransparent: true,
+              headerTitle: () => (
+                <Image
+                  style={{ width: 45, height: 30, resizeMode: 'contain', marginTop: 10 }}
+                  source={require('./assets/images/42companionLogo.png')}
+                />
+              ),
             }}
-          />
-          <Stack.Screen
-            name="Profile"
-            component={ProfileScreen}
-            options={{
-              headerTitleAlign: 'center',
-              // headerTitle: () => (
-              //   <Image
-              //     style={{ width: 45, height: 30, resizeMode: 'contain', marginTop: 10}}
-              //     source={require('./assets/images/42companionLogo.png')}
-              //   />
-              // ),
-            }}
-          />
-        </Stack.Navigator>
-        <StatusBar style="light" barStyle="light-content" />
-      </NavigationContainer>
-    </BackgroundComponent>
+          >
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                cardStyle: { backgroundColor: 'transparent' },
+                presentation: 'transparentModal',
+                // headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Profile"
+              component={ProfileScreen}
+              options={{
+                headerTitleAlign: 'center',
+              }}
+            />
+          </Stack.Navigator>
+          <StatusBar style="light" barStyle="light-content" />
+        </NavigationContainer>
+      </BackgroundComponent>
+    </UserProvider>
   );
 }
