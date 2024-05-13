@@ -55,8 +55,8 @@ npm install
 To start the app, you can use the following commands depending on the platform you want to test:
 
 ```sh
-expo start # Starts the Expo CLI
-expo start --android # Opens your app in an Android emulator or connected device
-expo start --ios # Opens your app in the iOS simulator (macOS only)
-expo start --web # Opens your app in a web browser
+npm start # Starts the npm CLI
+npm start --android # Opens your app in an Android emulator or connected device
+npm start --ios # Opens your app in the iOS simulator (macOS only)
+npm start --web # Opens your app in a web browser
 ```
