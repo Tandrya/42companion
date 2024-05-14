@@ -1,6 +1,6 @@
 // React Elements
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Image, TextInput } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
 
 // Components
 import BackgroundComponent from '../../components/atoms/BackgroundComponent.js';
@@ -17,6 +17,10 @@ import * as Colors from '../../styles/colors.js';
 
 // Contexts
 import { useUser } from '../../contexts/UserContext.js';
+
+// Assets
+import InputSVG from '../../assets/svg/inputIcon.svg';
+import SearchSVG from '../../assets/svg/searchIcon.svg';
 
 const HomeScreen = ({ navigation }) => {
 
@@ -54,17 +58,24 @@ const HomeScreen = ({ navigation }) => {
           <HeroComponent />
           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
             <TextComponent string={'Search for a 42 login :'} style={styles.textBody} />
-            <TextInput
-              cursorColor={'white'}
-              maxLength={12}
-              style={styles.textInput}
-              onChangeText={setSearchInput}
-              value={searchInput}
-            />
-            <Button
+            <View>
+              <InputSVG width={20} height={20} style={{ position: 'absolute', top: 36, left: 0 }} />
+              <TextInput
+                cursorColor={'white'}
+                maxLength={12}
+                style={styles.textInput}
+                onChangeText={setSearchInput}
+                value={searchInput}
+              />
+            </View>
+            <TouchableOpacity
               title="Search"
               onPress={handleProfileSearch}
-            />
+            >
+              <View style={styles.button}>
+                <SearchSVG width={21} height={21} />
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </WrapperComponent>
@@ -83,11 +94,13 @@ const styles = StyleSheet.create({
   textBody: {
     color: Colors.LIGHT_COLOR,
     fontSize: 16,
+    marginBottom: 20
   },
   textInput: {
     paddingBottom: 10,
+    paddingLeft: 40,
     width: 300,
-    marginBottom: 60,
+    marginBottom: 70,
     marginTop: 30,
     height: 40,
     color: 'white',
@@ -96,6 +109,15 @@ const styles = StyleSheet.create({
     borderRightColor: 'transparent',
     borderBottomColor: 'white',
     borderWidth: 1,
+  },
+  button: {
+    backgroundColor: Colors.PRIMARY_COLOR,
+    height: 70,
+    aspectRatio: 1,
+    borderRadius: 50,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
