@@ -5,6 +5,10 @@ import { useState } from 'react'
 // Organisms
 import LargeCardComponent from '../../../components/organisms/LargeCardComponent.js';
 
+// Functions
+import { getProjectOccurrences } from '../../../api/ApiFunctions.js';
+import { retrieveAccessToken } from '../../../api/AuthFunctions.js';
+
 // Modals
 import ProjectModal from '../modals/ProjectModal.js';
 
@@ -18,12 +22,14 @@ const ProjectsScreen = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
 
-    const handleProjectPress = (id, occurrence) => {
+    const handleProjectPress = async (id, occurrence) => {
+
         if (occurrence && occurrence > 0) {
-            setModalVisible(true);
-            // handle project occurrences here
-            console.log('Project ID: ', id);
-            setSelectedProject('data');
+            const token = await retrieveAccessToken();
+            getProjectOccurrences(token, id).then((data) => {
+                setSelectedProject(data.teams);
+                setModalVisible(true);
+            });
         }
     }
 
@@ -35,7 +41,11 @@ const ProjectsScreen = () => {
                 contentContainerStyle={{ paddingBottom: 100 }}
             >
                 {user.projects_users.map(project => (
-                    <TouchableOpacity activeOpacity={1} key={project.id} onPress={() => handleProjectPress(project.id, project.occurrence)}>
+                    <TouchableOpacity
+                        activeOpacity={1}
+                        key={project.id}
+                        onPress={() => handleProjectPress(project.id, project.occurrence)}
+                    >
                         <LargeCardComponent
                             key={project.id}
                             data={{

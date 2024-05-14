@@ -18,7 +18,7 @@ const GradientModal = () => {
 
     return (
         <AnimatedLinearGradient
-            colors={['rgba(20,20,20,1)', 'transparent']}
+            colors={['rgba(10,10,10,1)', 'transparent']}
             start={{ x: 0.5, y: 0.1 }}
             end={{ x: 0.5, y: 0.5 }}
             style={[styles.gradient, { opacity: opacity }]}

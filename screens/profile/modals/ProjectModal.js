@@ -1,5 +1,5 @@
 // React Elements
-import { View, StyleSheet, ScrollView, Modal, Button } from 'react-native';
+import { View, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 // Organisms
@@ -11,10 +11,12 @@ import GradientModal from './GradientModal.js';
 
 // Styles
 import * as Spacing from '../../../styles/spacing.js';
+import * as Colors from '../../../styles/colors.js';
+
+// Assets
+import CloseSVG from '../../../assets/svg/closeIcon.svg';
 
 const ProjectModal = ({ visible, onClose, data }) => {
-
-    console.log(data);
 
     return (
         <OverlayModal
@@ -35,28 +37,40 @@ const ProjectModal = ({ visible, onClose, data }) => {
                         contentContainerStyle={styles.scroll}
                         showsVerticalScrollIndicator={false}
                     >
-                        {/* for each project */}
-                        <LargeCardComponent
-                            data={{
-                                id: 'data.id',
-                                name: 'data.project.name',
-                                finalmark: 'data.final_mark',
-                                status: 'data["validated?"]',
-                                occurrence: 'data.occurrence',
-                                cursus: 'data.cursus_ids',
-                                date: 'data.marked_at ? data.marked_at : data.created_at',
-                                user_cursus: 'cursus.cursus.id'
-                            }} />
+                        {data && data.map(project => (
+                            <LargeCardComponent
+                                key={project.id}
+                                data={{
+                                    id: project.id,
+                                    name: project.name,
+                                    finalmark: project.final_mark,
+                                    status: project["validated?"],
+                                    occurrence: project.occurrence,
+                                    cursus: project.cursus_ids,
+                                    date: project.marked_at ? project.marked_at : project.created_at,
+                                    user_cursus: project.cursus_ids
+                                }}
+                            />
+                        )).reverse()}
                     </ScrollView>
                 </View>
                 <LinearGradient
-                    colors={['transparent', 'rgba(20,20,20,1)']}
+                    colors={['transparent', 'rgba(10,10,10,1)']}
                     start={{ x: 0.5, y: 0.5 }}
                     style={styles.gradient}
                 />
-                <View style={styles.bottom}>
+                <TouchableOpacity
+                    title="Close"
+                    onPress={onClose}
+                    style={styles.bottom}
+                >
+                    <View style={styles.button}>
+                        <CloseSVG width={15} height={15} />
+                    </View>
+                </TouchableOpacity>
+                {/* <View style={styles.bottom}>
                     <Button title="Close" onPress={onClose} />
-                </View>
+                </View> */}
             </Modal>
         </OverlayModal>
     )
@@ -89,6 +103,15 @@ const styles = StyleSheet.create({
         zIndex: 1,
         elevation: 1,
         pointerEvents: 'none',
+    },
+    button: {
+        backgroundColor: Colors.PRIMARY_COLOR,
+        height: 60,
+        aspectRatio: 1,
+        borderRadius: 50,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

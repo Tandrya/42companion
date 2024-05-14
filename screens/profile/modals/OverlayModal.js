@@ -24,7 +24,7 @@ const OverlayModal = ({ children, visible, onClose }) => {
 const styles = StyleSheet.create({
     wrapper: {
         height: '100%',
-        backgroundColor: 'rgba(20, 20, 20, 1)'
+        backgroundColor: 'rgba(10, 10, 10, 0.9)'
     }
 });
 

@@ -1,5 +1,5 @@
 // Environment Variables
-import { API_GET_USER, API_GET_USER_INFOS } from "@env";
+import { API_GET_USER, API_GET_USER_INFOS, API_GET_PROJECT } from "@env";
 
 export const getUserInfos = async (accessToken, login) => {
 
@@ -39,5 +39,20 @@ export const getUserAllInfos = async (accessToken, userID) => {
   }
 };
 
-// For all project occurrences
-// GET /v2/projects_users/:id
+export const getProjectOccurrences = async (accessToken, projectID) => {
+
+  try {
+    const response = await fetch(`${API_GET_PROJECT}${projectID}`, {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${accessToken}` }
+    });
+    const data = await response.json();
+
+    if (data) {
+      return data;
+    }
+  } catch (error) {
+    console.error('Error fetching project occurrences:', error);
+    return null;
+  }
+};
