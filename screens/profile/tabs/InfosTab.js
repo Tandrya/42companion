@@ -50,7 +50,7 @@ const InfosScreen = () => {
                 </View>
                 <View style={style.infoTabRow}>
                     <SquareCardComponent title={'Blackhole Days'} value={blackholeDays} />
-                    <SquareCardComponent title={'Pool Year'} value={cursus.user.pool_year} />
+                    <SquareCardComponent title={'Pool Year'} value={cursus.user.pool_year ? cursus.user.pool_year : '/'} />
                 </View>
                 <View style={style.infoTabRow}>
                     <SquareCardComponent title={'Achievements'} value={user.achievements.length} />
