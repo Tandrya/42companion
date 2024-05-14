@@ -1,6 +1,9 @@
 // React Elements
 import { View, StyleSheet, ImageBackground } from 'react-native';
 
+// Atoms
+import TextComponent from '../atoms/TextComponent.js';
+
 // Molecules
 import CardTitleComponent from '../molecules/CardTitleComponent.js';
 import CardInfoComponent from '../molecules/CardInfoComponent.js';
@@ -36,12 +39,17 @@ const LargeCardComponent = ({ data }) => {
                         </View>
                     ) : (
                         <View style={style.cardContentColumn}>
+                            {data.occurrence > 0 ? (
+                                <View style={style.cardRightArrow}>
+                                    <TextComponent string={'>'} style={{ fontSize: 20, color: Colors.LIGHT_COLOR }} />
+                                </View>
+                            ) : null}
                             <View style={[style.cardContentRow]}>
-                                <CardInfoComponent title={'Cursus'} value={'Common Core'} />
-                                <CardInfoComponent title={'Date'} value={'2024 - 05'} />
+                                <CardInfoComponent title={'Cursus'} value={data.cursus == data.user_cursus ? 'Main Cursus' : 'Old Cursus'} />
+                                <CardInfoComponent title={'Date'} value={data.date ? data.date.substring(0, 10) : null} />
                             </View>
                             <View style={[style.cardContentRow, { width: '100%' }]}>
-                                <CardTagComponent color={Colors.DARK_COLOR} string={data.finalmark == null ? 'In Progress' : data.finalmark + ' / 100' } />
+                                <CardTagComponent color={Colors.DARK_COLOR} string={data.finalmark == null ? 'In Progress' : data.finalmark + ' / 100'} />
                                 {data.finalmark !== null ? (
                                     <CardTagComponent color={data.status ? Colors.PRIMARY_COLOR : Colors.SECONDARY_COLOR} string={data.status ? 'Success' : 'Failure'} />
                                 ) : (
@@ -81,6 +89,11 @@ const style = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 3,
     },
+    cardRightArrow: {
+        position: 'absolute',
+        right: -5,
+        top: 35,
+    }
 });
 
 export default LargeCardComponent;
