@@ -11,7 +11,7 @@ import RadarChart from '../../../vendor/SpiderGraph.js';
 import * as Colors from '../../../styles/colors.js';
 
 const SkillsScreen = () => {
-
+    const { user, setUser } = useUser();
     const { cursus, setCursus } = useUser();
 
     const getSkills = cursus.skills.reduce((accumulator, currentValue) => {
@@ -26,19 +26,21 @@ const SkillsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 100 }}
             >
-                <RadarChart
-                    graphSize={350}
-                    scaleCount={16}
-                    numberInterval={4}
-                    data={[getSkills]}
-                    options={{
-                        graphShape: 1,
-                        showAxis: true,
-                        showIndicator: true,
-                        colorList: [Colors.PRIMARY_COLOR],
-                        dotList: [false],
-                    }}
-                />
+                {user["staff?"] ? null : (
+                    <RadarChart
+                        graphSize={350}
+                        scaleCount={16}
+                        numberInterval={4}
+                        data={[getSkills]}
+                        options={{
+                            graphShape: 1,
+                            showAxis: true,
+                            showIndicator: true,
+                            colorList: [Colors.PRIMARY_COLOR],
+                            dotList: [false],
+                        }}
+                    />
+                )}
             </ScrollView>
         </View>
     );
