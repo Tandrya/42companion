@@ -1,8 +1,12 @@
 // React Elements
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { useState } from 'react'
 
 // Organisms
 import LargeCardComponent from '../../../components/organisms/LargeCardComponent.js';
+
+// Modals
+import ProjectModal from '../modals/ProjectModal.js';
 
 // Contexts
 import { useUser } from '../../../contexts/UserContext.js';
@@ -11,9 +15,15 @@ const ProjectsScreen = () => {
     const { user, setUser } = useUser();
     const { cursus, setCursus } = useUser();
 
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedProject, setSelectedProject] = useState(null);
+
     const handleProjectPress = (id, occurrence) => {
         if (occurrence && occurrence > 0) {
-            alert('Visit project');
+            setModalVisible(true);
+            // handle project occurrences here
+            console.log('Project ID: ', id);
+            setSelectedProject('data');
         }
     }
 
@@ -37,10 +47,17 @@ const ProjectsScreen = () => {
                                 cursus: project.cursus_ids,
                                 date: project.marked_at ? project.marked_at : project.created_at,
                                 user_cursus: cursus.cursus.id
-                            }} />
+                            }}
+                        />
                     </TouchableOpacity>
                 ))}
             </ScrollView>
+
+            <ProjectModal
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                data={selectedProject}
+            />
         </View>
     );
 }
