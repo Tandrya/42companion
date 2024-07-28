@@ -30,20 +30,26 @@ const HomeScreen = ({ navigation }) => {
 
   const updateUserData = async (dataInfos) => {
     setUser(dataInfos);
-    setCursus(dataInfos.cursus_users.find(cursus => cursus.cursus.kind === 'main'));
+
+    const mainCursus = dataInfos.cursus_users.find(cursus => cursus.cursus.kind === 'main');
+    if (!mainCursus) {
+      setCursus(dataInfos.cursus_users.find(cursus => cursus.cursus.kind === 'piscine'));
+    } else {
+      setCursus(mainCursus);
+    }
   }
 
   const handleProfileSearch = async () => {
     const accessToken = await retrieveAccessToken();
-    const userInfos = await getUserInfos(accessToken, searchInput.toLocaleLowerCase());
+    const userInfos = await getUserInfos(accessToken, searchInput.toLocaleLowerCase().trim());
 
     if (userInfos) {
       updateUserData(userInfos).then(() => {
         navigation.navigate('Profile');
       });
     } else {
-      alert('User not found.');
-      console.error('User not found.');
+      alert('Error fetching user infos from 42 API.');
+      console.error('Error fetching user infos from 42 API.');
     }
   };
 
