@@ -6,9 +6,9 @@ import { APP_ENV_UID, APP_ENV_SECRET, API_GET_TOKEN } from "@env";
 
 export const getAccessToken = async () => {
 
-    try {
-        await AsyncStorage.clear();
+    console.log('Getting new access token');
 
+    try {
         const response = await fetch(API_GET_TOKEN, {
             method: 'POST',
             headers: {
@@ -41,6 +41,7 @@ export const retrieveAccessToken = async () => {
     const storedDataString = await AsyncStorage.getItem('tokenData');
 
     if (!storedDataString) {
+        console.log('No token data found, getting new access token');
         return await getAccessToken();
     }
 
@@ -51,8 +52,11 @@ export const retrieveAccessToken = async () => {
     const expirationTime = (created_at + expires_in);
 
     if (currentTime > expirationTime) {
+        await AsyncStorage.clear();
+        console.log('Token expired, getting new access token');
         return await getAccessToken();
     } else {
-        return access_token;
+        console.log('Token still valid');
+        return tokenData.access_token;
     }
 };

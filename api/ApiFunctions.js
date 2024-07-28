@@ -34,7 +34,7 @@ export const getUserAllInfos = async (accessToken, userID) => {
       return data;
     }
   } catch (error) {
-    console.error('Error fetching user:', error);
+    console.error('Error fetching all user infos:', error);
     return null;
   }
 };
