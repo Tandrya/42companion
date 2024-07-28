@@ -1,16 +1,12 @@
 // React Elements
 import { View, StyleSheet, ScrollView, Modal, TouchableOpacity } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Dimensions } from 'react-native';
 
 // Organisms
 import LargeCardComponent from '../../../components/organisms/LargeCardComponent';
 
-// Modals
-import OverlayModal from './OverlayModal.js';
-import GradientModal from './GradientModal.js';
-
 // Styles
-import * as Spacing from '../../../styles/spacing.js';
 import * as Colors from '../../../styles/colors.js';
 
 // Assets
@@ -19,19 +15,12 @@ import CloseSVG from '../../../assets/svg/closeIcon.svg';
 const ProjectModal = ({ visible, onClose, data }) => {
 
     return (
-        <OverlayModal
-            animationType="fade"
-            transparent={true}
-            visible={visible}
-            onRequestClose={onClose}
-        >
             <Modal
                 animationType="slide"
-                transparent={true}
+                transparent={false}
                 visible={visible}
                 onRequestClose={onClose}
             >
-                {visible && <GradientModal />}
                 <View style={styles.wrapper}>
                     <ScrollView
                         contentContainerStyle={styles.scroll}
@@ -55,7 +44,7 @@ const ProjectModal = ({ visible, onClose, data }) => {
                     </ScrollView>
                 </View>
                 <LinearGradient
-                    colors={['transparent', 'rgba(10,10,10,1)']}
+                    colors={['transparent', 'rgba(10,10,10,0)']}
                     start={{ x: 0.5, y: 0.5 }}
                     style={styles.gradient}
                 />
@@ -68,11 +57,7 @@ const ProjectModal = ({ visible, onClose, data }) => {
                         <CloseSVG width={15} height={15} />
                     </View>
                 </TouchableOpacity>
-                {/* <View style={styles.bottom}>
-                    <Button title="Close" onPress={onClose} />
-                </View> */}
             </Modal>
-        </OverlayModal>
     )
 }
 
@@ -82,15 +67,15 @@ const styles = StyleSheet.create({
         paddingTop: 200
     },
     wrapper: {
-        marginLeft: 20,
-        marginRight: 20,
-        borderRadius: 20
+        paddingLeft: 20,
+        paddingRight: 20,
+        height: '100%',
+        backgroundColor: 'rgba(30, 30, 30, 1)'
     },
     bottom: {
         position: 'absolute',
         bottom: 60,
-        left: Spacing.SCREEN_WIDTH / 2,
-        transform: [{ translateX: -30 }],
+        left: Dimensions.get('window').width / 2.2,
         elevation: 2,
         zIndex: 2
     },

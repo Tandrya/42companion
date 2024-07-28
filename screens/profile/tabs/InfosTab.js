@@ -34,6 +34,7 @@ const InfosScreen = () => {
     }
 
     const projectsCount = totalProjects();
+    
     const blackholeDays = cursus.blackholed_at ? daysFromNow(cursus.blackholed_at) : '∞';
 
     return (
@@ -73,7 +74,7 @@ const style = StyleSheet.create({
     infoTabRow: {
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'space-around',
     }
 });
 

@@ -10,7 +10,6 @@ import SkillsScreen from './SkillsTab.js';
 import * as Colors from '../../../styles/colors.js';
 import * as Spacing from '../../../styles/spacing.js';
 
-
 const Tab = createMaterialTopTabNavigator();
 
 const ProfileTabs = () => {
@@ -63,9 +62,8 @@ const TabNavigatorOptions = {
     height: null,
     top: '10%',
     bottom: '10%',
-    width: 107,
-    left: 4,
-    right: 4,
+    marginLeft: '1%',
+    width: '30%',
     borderRadius: 100,
   },
 };
