@@ -1,7 +1,7 @@
 ## 42 Companion
 A React Native application developed with Expo, designed to display information about students from the 42 Network, using the 42 API.
 
-![alt text](https://book.mickaellaval.com/book-3.webp)
+![alt text](https://book-laval.vercel.app/book-3.webp)
 
 ### 42 Network 🔒
 You must be a 42 Network student to access the app (as secret keys are provided by the 42 intranet).
