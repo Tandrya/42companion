@@ -3,7 +3,7 @@ A React Native application developed with Expo, designed to display information 
 
 ___
 
-![alt text](https://isotope42.com/_ipx/_/https://tandrya.space/wp-content/uploads/2024/07/isotope-service-list.webp)
+![alt text](https://isotope42.com/_ipx/_/https://tandrya.space/wp-content/uploads/2024/06/isotope-dev-mobile-1.webp)
 
 ___
 
