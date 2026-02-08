@@ -1,7 +1,11 @@
 ## 42 Companion
 A React Native application developed with Expo, designed to display information about students from the 42 Network, using the 42 API.
 
+___
+
 ![alt text](https://isotope42.com/_ipx/_/https://tandrya.space/wp-content/uploads/2024/07/isotope-service-list.webp)
+
+___
 
 ### 42 Network 🔒
 You must be a 42 Network student to access the app (as secret keys are provided by the 42 intranet).
